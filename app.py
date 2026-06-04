@@ -177,14 +177,6 @@ if calculate and name:
             nutrition, bmi_data,
             predictions, name,
             current_weight, goal_weight)
-        col1, col2 = st.columns(2)
-        with col1:
-            st.image('output/macro_pie.png')
-            st.image('output/bmi_gauge.png')
-        with col2:
-            st.image('output/nutrition_bars.png')
-            st.image('output/transformation.png')
-
     with tab4:
         st.header("Progress Tracker")
         save_entry(name, current_weight,
