@@ -74,15 +74,15 @@ def generate_shopping_list(meal_plan, days=7):
 
 def format_shopping_list(shopping_list):
     """Format shopping list for display."""
-    formatted = "🛒 Shopping List\n"
+    formatted = "Shopping List\n"
     formatted += "="*40 + "\n\n"
     
     for category, items in shopping_list.items():
-        formatted += f"📦 {category}\n"
+        formatted += f"CATEGORY: {category}\n"
         formatted += "-"*40 + "\n"
         for item, qty in items.items():
             unit = get_unit(item)
-            formatted += f"  ✓ {item}: {qty:.0f} {unit}\n"
+            formatted += (f"  - {item}: {qty:.0f} {unit}\n")
         formatted += "\n"
     
     return formatted
@@ -141,12 +141,16 @@ def export_shopping_pdf(shopping_list, name):
         for item, qty in items.items():
             unit = get_unit(item)
             pdf.cell(10, 7, '')
+            # Remove special characters
+            text = f'- {item}: {qty:.0f} {unit}'
             pdf.cell(0, 7,
-                     f'✓ {item}: {qty:.0f} {unit}',
+                     text,
                      new_x='LMARGIN',
                      new_y='NEXT')
         pdf.ln(3)
     
+    import os
+    os.makedirs('data', exist_ok=True)
     filename = f'data/{name}_shopping_list.pdf'
     pdf.output(filename)
     return filename
